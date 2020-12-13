@@ -1,0 +1,14 @@
+{
+    "name": "Wikiquiz scoring extension",
+    "version": "1.0",
+    "description": "Injects text field and stopwatch",
+    "manifest_version": 2,
+    "content_scripts": [
+        {
+            "matches": ["https://wikiquiz.org/*"],
+            "include_globs": ["*Quiz_Scorer_App.html#/!/IQM/*"],
+            "js": ["content-script.js"],
+            "css": ["styles.css"]
+        }
+    ]
+}

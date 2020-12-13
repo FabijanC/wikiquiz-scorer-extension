@@ -1,0 +1,38 @@
+.question-area {
+    border: solid 2px;
+    border-radius: 5px;
+
+    margin-top: 20px;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-bottom: 20px;
+
+    font-size: 20px;
+
+    width: 90%;
+
+    float: left;
+}
+
+#clock-display, #clock-stop {
+    width: 80px;
+    font-size: 20px;
+    display: block;
+}
+
+.clock-over {
+    color: rgb(150, 50, 50);
+}
+
+.clock-fresh {
+    color: rgb(50, 150, 50);
+}
+
+.clock-running {
+    color: rgb(255, 255, 255);
+}
+
+.button-container {
+    float: left;
+    margin-top: 20px;
+}

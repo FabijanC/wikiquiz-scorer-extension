@@ -25,18 +25,36 @@ class Clock {
 
         this.display = document.createElement("button");
         this.display.id = "clock-display";
-        this.display.onclick = this.playPause;
+        this.display.onclick = this.playPause.bind(this);
         this.refresh();
 
         this.stop = document.createElement("button");
         this.stop.id = "clock-stop";
-        this.stop.textContent = "STOP";
-        this.stop.onclick = this.stopHandler;
+        this.stop.textContent = "RESET";
+        this.stop.onclick = this.stopHandler.bind(this);
+
+        this.decreaseButton = this.createChangeButton("-", this.decreaseStartingTime);
+        this.increaseButton = this.createChangeButton("+", this.increaseStartingTime);
+
+        this.plusMinusContainer = document.createElement("div");
+        this.plusMinusContainer.id = "plus-minus-container";
+        this.plusMinusContainer.appendChild(this.decreaseButton);
+        this.plusMinusContainer.appendChild(this.increaseButton);
 
         this.container = document.createElement("div");
         this.container.className = "button-container";
+        this.container.appendChild(this.plusMinusContainer);
         this.container.appendChild(this.display);
         this.container.appendChild(this.stop);
+    }
+
+    createChangeButton(textContent, onclickCallback) {
+        const changeButton = document.createElement("button");
+        changeButton.textContent = textContent;
+        changeButton.className = "change-button";
+        changeButton.width = "50%";
+        changeButton.onclick = onclickCallback.bind(this);
+        return changeButton;
     }
 
     refresh() {
@@ -47,7 +65,7 @@ class Clock {
 
     updateView() {
         this.display.className = this.counting ? "clock-fresh" : "clock-over";
-        if (this.time === this.startingTime) {
+        if (this.time > 0) {
             this.display.className = "clock-fresh";
         }
         this.display.textContent = (this.time / 1000).toFixed(this.precision);
@@ -60,7 +78,7 @@ class Clock {
     /**
      * display onclick event hander
      */
-    playPause = (e) => {
+    playPause = function(e) {
         if (this.time <= 0) {
             this.refresh();
         }
@@ -73,7 +91,7 @@ class Clock {
     /**
      * stop onclick event handler
      */
-    stopHandler = (e) => {
+    stopHandler = function(e) {
         this.counting = false;
         this.refresh();
     }
@@ -81,10 +99,10 @@ class Clock {
     play() {
         this.lastTimestamp = getCurrentTimestamp();
         this.counting = true;
-        setTimeout(this.decreaseTime, this.timeInterval);
+        setTimeout(this.decreaseTime.bind(this), this.timeInterval);
     }
 
-    decreaseTime = () => {
+    decreaseTime = function() {
         if (!this.counting) {
             return;
         }
@@ -98,11 +116,29 @@ class Clock {
             this.counting = false;
             this.display.className = "clock-over";
         } else {
-            setTimeout(this.decreaseTime, this.timeInterval);
+            setTimeout(this.decreaseTime.bind(this), this.timeInterval);
         }
     }
 
+    changeStartingTime(change) {
+        const newTime = this.time + change;
+        if (newTime >= 0) {
+            if (this.time === this.startingTime) {
+                this.startingTime = newTime;
+            }
+            this.time = newTime;
+            this.updateView();
+        }
+    }
+
+    increaseStartingTime() {
+        this.changeStartingTime(+1000);
+    }
+
+    decreaseStartingTime() {
+        this.changeStartingTime(-1000);
+    }
 }
 
-var clock = new Clock(30 * 1000, 100, 1, iqm);
+var clock = new Clock(30 * 1000, 100, 1);
 iqm.appendChild(clock.container);

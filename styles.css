@@ -38,3 +38,8 @@
     margin-right: 10px;
     margin-left: 10px;
 }
+
+.change-button {
+    float: left;
+    width: 50%;
+}

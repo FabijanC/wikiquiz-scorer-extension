@@ -10,7 +10,7 @@ function getCurrentTimestamp() {
     return new Date().valueOf();
 }
 
-class Clock {
+class Timer {
     /**
      * - startingTime and timeInterval are in milliseconds
      * - precision represents the number of decimals of the seconds display
@@ -24,12 +24,12 @@ class Clock {
         this.lastTimestamp = null;
 
         this.display = document.createElement("button");
-        this.display.id = "clock-display";
+        this.display.id = "timer-display";
         this.display.onclick = this.playPause.bind(this);
         this.refresh();
 
         this.stop = document.createElement("button");
-        this.stop.id = "clock-stop";
+        this.stop.id = "timer-stop";
         this.stop.textContent = "Reset";
         this.stop.onclick = this.stopHandler.bind(this);
 
@@ -64,9 +64,9 @@ class Clock {
     }
 
     updateView() {
-        this.display.className = this.counting ? "clock-fresh" : "clock-over";
+        this.display.className = this.counting ? "timer-fresh" : "timer-over";
         if (this.time > 0) {
-            this.display.className = "clock-fresh";
+            this.display.className = "timer-fresh";
         }
         this.display.textContent = (this.time / 1000).toFixed(this.precision);
     }
@@ -114,7 +114,7 @@ class Clock {
         this.updateView();
         if (this.time <= 0) {
             this.counting = false;
-            this.display.className = "clock-over";
+            this.display.className = "timer-over";
         } else {
             setTimeout(this.decreaseTime.bind(this), this.timeInterval);
         }
@@ -140,5 +140,5 @@ class Clock {
     }
 }
 
-var clock = new Clock(30 * 1000, 100, 1);
-iqm.appendChild(clock.container);
+var timer = new Timer(30 * 1000, 100, 1);
+iqm.appendChild(timer.container);

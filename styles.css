@@ -14,21 +14,21 @@
     float: left;
 }
 
-#clock-display, #clock-stop {
+#timer-display, #timer-stop {
     width: 80px;
     font-size: 20px;
     display: block;
 }
 
-.clock-over {
+.timer-over {
     color: rgb(150, 50, 50);
 }
 
-.clock-fresh {
+.timer-fresh {
     color: rgb(50, 150, 50);
 }
 
-.clock-running {
+.timer-running {
     color: rgb(255, 255, 255);
 }
 

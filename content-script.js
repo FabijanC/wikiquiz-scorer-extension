@@ -30,7 +30,7 @@ class Clock {
 
         this.stop = document.createElement("button");
         this.stop.id = "clock-stop";
-        this.stop.textContent = "RESET";
+        this.stop.textContent = "Reset";
         this.stop.onclick = this.stopHandler.bind(this);
 
         this.decreaseButton = this.createChangeButton("-", this.decreaseStartingTime);
@@ -78,7 +78,7 @@ class Clock {
     /**
      * display onclick event hander
      */
-    playPause = function(e) {
+    playPause(e) {
         if (this.time <= 0) {
             this.refresh();
         }
@@ -91,7 +91,7 @@ class Clock {
     /**
      * stop onclick event handler
      */
-    stopHandler = function(e) {
+    stopHandler(e) {
         this.counting = false;
         this.refresh();
     }
@@ -102,7 +102,7 @@ class Clock {
         setTimeout(this.decreaseTime.bind(this), this.timeInterval);
     }
 
-    decreaseTime = function() {
+    decreaseTime() {
         if (!this.counting) {
             return;
         }
